@@ -1,0 +1,173 @@
+<div class="header">
+  <div class="logo">
+    <img
+      src="https://www.ewa.bh/en/HeaderImages/EWALogo.png"
+      alt="Logo"
+      style="width: 350px; height: auto"
+    />
+  </div>
+  <title>EWA Contracts</title>
+  <h1>EWA Contracts Web Version 1.0</h1>
+  <div class="actions">
+    <button
+      id="DashBoard"
+      onclick="showHomeOnly(); setTimeout(redirectHome,2000);"
+      class="btn btn-primary"
+    >
+      <span
+        id="showHomeOnlySpinner"
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      Home
+    </button>
+    <button
+      id="showAllBtnInAllSchemes"
+      onclick="showSpinnerAllSchemesFunc(); setTimeout(redirectAllSchemes,1000);"
+      class="btn btn-primary"
+    >
+      <span
+        id="showSpinnerAllSchemes"
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      All Schemes
+    </button>
+
+    <button
+      id="showSpinnerSignOutBtn"
+      onclick="showSpinnerSignOutBtnFunc();setTimeout(redirectSignIn,1000);"
+      class="btn btn-danger"
+    >
+      <span
+        id="showSpinnerSignOut"
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      Sign Out
+    </button>
+    <button
+      id="newSchemesSpinner"
+      onclick="showSpinnerNewSchemeBtnFunc();setTimeout(redirectNewSchemes,1000);"
+      class="btn btn-success"
+    >
+      <span
+        id="showNewSchemesSpinner"
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      New Scheme
+    </button>
+    <button
+      id="add-user"
+      onclick="showSpinnerAddUser(); setTimeout(redirectAddUsers,1000);"
+      class="btn btn-primary"
+    >
+      <span
+        id="SpinnerAddingUsers"
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+      Add User
+    </button>
+  </div>
+</div>
+
+<style>
+  .header {
+    display: flex; /* Use Flexbox for layout */
+    justify-content: space-between; /* Space items in the header */
+    align-items: center; /* Center items vertically */
+    padding: 10px; /* Add some padding for aesthetics */
+    width: 100%;
+    margin: 0px;
+  }
+
+  .logo {
+    flex: 0 0 auto; /* Prevent logo from growing or shrinking */
+  }
+
+  .actions {
+    display: flex; /* Use Flexbox for actions */
+    gap: 10px; /* Space between buttons */
+    flex: 0 0 auto; /* Prevent actions from growing or shrinking */
+  }
+  #showSpinnerHome {
+    display: none;
+  }
+  #showSpinnerAllSchemes {
+    display: none;
+  }
+  #showSpinnerSignOut {
+    display: none;
+  }
+  #showSpinnerNewSchemesSpan {
+    display: none;
+  }
+  #SpinnerAddingUsers {
+    display: none;
+  }
+</style>
+<script>
+  if (document.title === "All Schemes") {
+    document.getElementById("showAllBtn").style.display = "none"
+  } else if (document.title === "Add New Scheme") {
+    document.getElementById("showSpinnerNewSchemes").style.display = "none"
+  } else if (document.title === "Dashboard") {
+    document.getElementById("Sign Up").style.display = "none"
+  } else if (document.title === "Dashboard") {
+    document.getElementById("showSpinnerNewSchemeBtnFunc").style.display =
+      "none"
+  }
+
+  function showSpinnerHomeBtnFunc() {
+    // Show the spinner
+    const spinnerHome = document.getElementById("showSpinnerHome")
+    spinnerHome.style.display = "inline-block" // Show spinner
+  }
+  function redirectHome() {
+    window.location.href = "/schemes/dashBoard"
+  }
+  function showSpinnerAllSchemesFunc() {
+    // Show the spinner
+    const spinnerAllSchemes = document.getElementById("showSpinnerAllSchemes")
+    spinnerAllSchemes.style.display = "inline-block" // Show spinner
+  }
+  function redirectAllSchemes() {
+    window.location.href = "/schemes/allSchemes"
+  }
+
+  function showSpinnerSignOutBtnFunc() {
+    // Show the spinner
+    const spinnerSignOut = document.getElementById("showSpinnerSignOut")
+    spinnerSignOut.style.display = "inline-block" // Show spinner
+  }
+  function redirectSignIn() {
+    window.location.href = "/auth/sign-out"
+  }
+  function showSpinnerNewSchemesBtnFunc() {
+    // Show the spinner
+    const spinnerNewScheme = document.getElementById("SpinnerAddingScheme")
+    spinnerNewScheme.style.display = "inline-block" // Show spinner
+  }
+  function redirectNewSchemes() {
+    window.location.href = "/schemes/new"
+    document.getElementById(id).style.display = "inline-block"
+  }
+  // function redirectNewSchemes() {
+  //   window.location.href = "/schemes/new"
+  //   document.getElementById(id).style.display = "inline-block"
+  // }
+
+  function showSpinnerNewUser() {
+    // Show the spinner
+    const spinnerNewUser = document.getElementById("SpinnerAddingUsers")
+    spinnerNewScheme.style.display = "inline-block" // Show spinner
+  }
+</script>
+
