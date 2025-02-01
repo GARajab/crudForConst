@@ -15,10 +15,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.min.css"
-    />
 
     <style>
       body {
@@ -73,7 +69,7 @@
       }
     </style>
   </head>
-  <body onload="pushNotify()">
+  <body>
     <%- include('../partials/navbarAllSchemes.ejs') %>
 
     <!-- Header Section -->
@@ -97,6 +93,7 @@
     </header>
 
     <!-- User Info and Actions -->
+
     <script>
       function showSpinner() {
         document.getElementById("spinner").style.display = "inline-block"
@@ -124,12 +121,10 @@
       }
     </script>
 
-    <!-- Toast Notification Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.11.2/toastify.js"></script>
 
     <%- include('../partials/footer.ejs') %>
   </body>

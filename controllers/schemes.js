@@ -23,6 +23,7 @@ const index2 = async (req, res) => {
 
 const newScheme = (req, res) => {
   res.render("schemes/new.ejs")
+  req.session.messages = "Your action was successful!"
 }
 
 const createSchemeFunc = async (req, res) => {

@@ -7,15 +7,15 @@
     />
   </div>
   <title>EWA Contracts</title>
-  <h1>EWA Contracts Web Version 1.0</h1>
+  <h4>EWA Contracts Web Version 1.0</h4>
   <div class="actions">
     <button
       id="DashBoard"
-      onclick="showHomeOnly(); setTimeout(redirectHome,2000);"
+      onclick="showSpinnerHomeBtnFunc(); setTimeout(redirectHome,2000);"
       class="btn btn-primary"
     >
       <span
-        id="showHomeOnlySpinner"
+        id="showSpinnerHome"
         class="spinner-border spinner-border-sm"
         role="status"
         aria-hidden="true"
@@ -23,12 +23,12 @@
       Home
     </button>
     <button
-      id="showAllBtnInAllSchemes"
-      onclick="showSpinnerAllSchemesFunc(); setTimeout(redirectAllSchemes,1000);"
+      id="allSchemesBtn"
+      onclick="allSchemesBtnFunc(); setTimeout(redirectAllSchemes,1000);"
       class="btn btn-primary"
     >
       <span
-        id="showSpinnerAllSchemes"
+        id="allSchemesBtnSpinner"
         class="spinner-border spinner-border-sm"
         role="status"
         aria-hidden="true"
@@ -50,12 +50,12 @@
       Sign Out
     </button>
     <button
-      id="newSchemesSpinner"
+      id="newSchemesBtn"
       onclick="showSpinnerNewSchemeBtnFunc();setTimeout(redirectNewSchemes,1000);"
       class="btn btn-success"
     >
       <span
-        id="showNewSchemesSpinner"
+        id="newSchemesSpinner"
         class="spinner-border spinner-border-sm"
         role="status"
         aria-hidden="true"
@@ -63,8 +63,8 @@
       New Scheme
     </button>
     <button
-      id="add-user"
-      onclick="showSpinnerAddUser(); setTimeout(redirectAddUsers,1000);"
+      id="addUser"
+      onclick="showSpinnerNewUser(); setTimeout(redirectAddUsers,1000);"
       class="btn btn-primary"
     >
       <span
@@ -77,7 +77,7 @@
     </button>
   </div>
 </div>
-
+<h3 class="text-primary" style="text-align: center">Welcome <%= user.cpr %></h3>
 <style>
   .header {
     display: flex; /* Use Flexbox for layout */
@@ -97,32 +97,40 @@
     gap: 10px; /* Space between buttons */
     flex: 0 0 auto; /* Prevent actions from growing or shrinking */
   }
+
   #showSpinnerHome {
     display: none;
   }
-  #showSpinnerAllSchemes {
+  #allSchemesBtnSpinner {
     display: none;
   }
   #showSpinnerSignOut {
     display: none;
   }
-  #showSpinnerNewSchemesSpan {
+  #newSchemesSpinner {
     display: none;
   }
   #SpinnerAddingUsers {
     display: none;
   }
+  #showNewSchemesSpinner {
+    display: none;
+  }
+  #spinnerNewScheme {
+    display: none;
+  }
 </style>
 <script>
   if (document.title === "All Schemes") {
-    document.getElementById("showAllBtn").style.display = "none"
+    document.getElementById("allSchemesBtn").style.display = "none"
   } else if (document.title === "Add New Scheme") {
     document.getElementById("showSpinnerNewSchemes").style.display = "none"
   } else if (document.title === "Dashboard") {
     document.getElementById("Sign Up").style.display = "none"
-  } else if (document.title === "Dashboard") {
     document.getElementById("showSpinnerNewSchemeBtnFunc").style.display =
       "none"
+  } else if (document.title === "Sign Up") {
+    document.getElementById("addUser").style.display = "none"
   }
 
   function showSpinnerHomeBtnFunc() {
@@ -133,13 +141,16 @@
   function redirectHome() {
     window.location.href = "/schemes/dashBoard"
   }
-  function showSpinnerAllSchemesFunc() {
+  function allSchemesBtnFunc() {
     // Show the spinner
-    const spinnerAllSchemes = document.getElementById("showSpinnerAllSchemes")
+    const spinnerAllSchemes = document.getElementById("allSchemesBtnSpinner")
     spinnerAllSchemes.style.display = "inline-block" // Show spinner
   }
   function redirectAllSchemes() {
     window.location.href = "/schemes/allSchemes"
+  }
+  function redirectAddUsers() {
+    window.location.href = "/auth/sign-up"
   }
 
   function showSpinnerSignOutBtnFunc() {
@@ -150,24 +161,19 @@
   function redirectSignIn() {
     window.location.href = "/auth/sign-out"
   }
-  function showSpinnerNewSchemesBtnFunc() {
+  function showSpinnerNewSchemeBtnFunc() {
     // Show the spinner
-    const spinnerNewScheme = document.getElementById("SpinnerAddingScheme")
+    const spinnerNewScheme = document.getElementById("newSchemesSpinner")
     spinnerNewScheme.style.display = "inline-block" // Show spinner
   }
   function redirectNewSchemes() {
     window.location.href = "/schemes/new"
-    document.getElementById(id).style.display = "inline-block"
+    document.getElementById(newSchemesSpinner).style.display = "inline-block"
   }
-  // function redirectNewSchemes() {
-  //   window.location.href = "/schemes/new"
-  //   document.getElementById(id).style.display = "inline-block"
-  // }
 
   function showSpinnerNewUser() {
     // Show the spinner
     const spinnerNewUser = document.getElementById("SpinnerAddingUsers")
-    spinnerNewScheme.style.display = "inline-block" // Show spinner
+    spinnerNewUser.style.display = "inline-block" // Show spinner
   }
 </script>
-

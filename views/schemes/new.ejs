@@ -14,7 +14,10 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
       rel="stylesheet"
     />
-
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+      rel="stylesheet"
+    />
     <style>
       body {
         margin: 0; /* Reset the default margin */
@@ -43,48 +46,6 @@
     </style>
   </head>
   <body>
-    <!-- Toast container for notifications -->
-    <div class="toast-container">
-      <div
-        id="successToast"
-        class="toast container-fluid full-height justify-content-center align-items-center text-white bg-success"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-        style="display: none"
-      >
-        <div class="d-flex">
-          <div class="toast-body">Scheme added successfully!</div>
-          <button
-            type="button"
-            class="btn-close btn-close-white me-2 m-auto"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-      </div>
-      <div
-        id="errorToast"
-        class="toast container-fluid full-height justify-content-center align-items-center text-white bg-danger"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-        style="display: none"
-      >
-        <div class="d-flex">
-          <div class="toast-body">
-            An error occurred while adding the scheme!
-          </div>
-          <button
-            type="button"
-            class="btn-close btn-close-white me-2 m-auto"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-      </div>
-    </div>
-
     <%- include('../partials/navbarAllSchemes.ejs') %>
 
     <div class="content container">
@@ -284,27 +245,42 @@
     <!-- Bootstrap JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
       $(document).ready(function () {
+        toastr.success(`Scheme ${user.cpr} Is Added Successfully`, "Success", {
+          closeButton: false,
+          debug: false,
+          newestOnTop: false,
+          progressBar: true,
+          positionClass: "toast-top-center",
+          preventDuplicates: false,
+          onclick: null,
+          showDuration: "300",
+          hideDuration: "1000",
+          timeOut: "4000",
+          extendedTimeOut: "1000",
+          showEasing: "swing",
+          hideEasing: "linear",
+          showMethod: "fadeIn",
+          hideMethod: "fadeOut",
+        })
         $('form[name="addNewService"]').on("submit", function (event) {
           event.preventDefault() // Prevent default form submission
-          $("#loadingOverlay").addClass("show") // Show spinner overlay
+          showSpinnerAdd() // Show spinner
 
           $.ajax({
             url: $(this).attr("action"),
             type: $(this).attr("method"),
             data: $(this).serialize(),
             success: function () {
-              $("#loadingOverlay").removeClass("show") // Hide spinner overlay
-              const toast = new bootstrap.Toast($("#successToast"))
-              $("#successToast").show() // Show success message toast
-              toast.show()
+              // Hide spinner
+              $("#spinnerAdd").hide() // or remove the spinner
+              setTimeout(redirect, 2000) // Redirect
             },
             error: function () {
-              $("#loadingOverlay").removeClass("show") // Hide spinner overlay
-              const toast = new bootstrap.Toast($("#errorToast"))
-              $("#errorToast").show() // Show error message toast
-              toast.show()
+              // Hide spinner
+              $("#spinnerAdd").hide() // or remove the spinner
             },
           })
         })

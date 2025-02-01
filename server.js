@@ -5,14 +5,31 @@ import session from "express-session"
 import { connect } from "mongoose"
 import methodOverRide from "method-override"
 import morgan from "morgan"
-import passUserToView from "./middleware/pass-user-to-view.js"
+// import passUserToView from "./middleware/pass-user-to-view.js"
 import authRouter from "./routes/auth.js"
 import schemeRouter from "./routes/schemes.js"
-import getMessages from "./middleware/display-message.js"
+// import getMessages from "./middleware/display-message.js"
 import bodyParser from "body-parser"
 
 const app = express()
 const port = process.env.PORT || 3000
+
+// Session Management
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }, // Set to true if using HTTPS
+  })
+)
+
+app.use((req, res, next) => {
+  if (req.session.user) {
+    res.locals.user = req.session.user
+  }
+  next()
+})
 
 // Middleware Setup
 app.use(bodyParser.json())
@@ -20,21 +37,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverRide("_method"))
 app.use(morgan("dev"))
-
-// Session Management
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false }, // Set to true if using HTTPS
-  })
-)
-
-app.use(getMessages)
-app.use(passUserToView)
-
-// Set View Engine
+// app.use(getMessages)
+// app.use(passUserToView)
 app.set("view engine", "ejs")
 
 // Connect to MongoDB
@@ -65,10 +69,6 @@ app.get("/schemes/dashboard", (req, res) => {
   const user = req.session.username || "Guest" // Get the username from session, default to 'Guest'
   res.render("schemes/dashboard", { user }) // Pass username to the view
 })
-// app.get("/schemes/allSchemes", (req, res) => {
-//   const user = req.session.username || "Guest" // Get the username from session, default to 'Guest'
-//   res.render("schemes/allSchemes", { user }) // Pass username to the view
-// })
 
 // Handle adding a new scheme functionality
 app.post("/api/schemes", async (req, res) => {

@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Schemes</title>
+    <!-- toaster js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 
     <!-- MDBootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
@@ -16,6 +18,7 @@
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
 
     <style>
         .table thead th {
@@ -88,13 +91,7 @@
             justify-content: flex-end;
         }
 
-        .toast-container {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1050;
-            pointer-events: none;
-        }
+      
 
         .dataTables_wrapper .dataTables_filter {
             margin-bottom: 20px;
@@ -237,6 +234,7 @@ th, td {
     <!-- Your actual content here -->
 
     <!-- JS Scripts -->
+     
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -246,12 +244,13 @@ th, td {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 <body>
 
+    <%- include('../partials/navbarAllSchemes.ejs') %>
 <nav class="navbar navbar-light bg-light mb-4">
     <div class="container">
-      <%- include('../partials/navbarAllSchemes.ejs') %>
         <!-- <h1 id="nav-header">EWA "Mohamed Rajab"</h1> -->
         <img src="" alt="" id="nav-header">
     </div>
@@ -386,21 +385,6 @@ th, td {
     </div>
 </div>
 
-<!-- Toast container for notifications -->
-<div class="toast-container">
-    <div id="successToast" class="toast align-items-center text-white bg-success" role="alert" aria-live="assertive" aria-atomic="true" style="display: none">
-        <div class="d-flex">
-            <div class="toast-body">Changes saved successfully!</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-    <div id="deleteToast" class="toast align-items-center text-white bg-danger" role="alert" aria-live="assertive" aria-atomic="true" style="display: none">
-        <div class="d-flex">
-            <div class="toast-body">Scheme deleted successfully!</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-</div>
 
 
 
@@ -427,6 +411,7 @@ function formatDate(inputDate) {
              initComplete: function(settings, json) {
        
             document.getElementById('loader').style.display = 'none';
+            toastr.info('Are you the 6 fingered man?')
     },
             buttons: [
                 { extend: "copy", className: "btn btn-primary", text: "Copy" },
@@ -477,19 +462,14 @@ function formatDate(inputDate) {
         $("#editForm").on("submit", function (event) {
             event.preventDefault();
             $("#loadingOverlay").addClass("show");
-
-            $.ajax({
+                $.ajax({
                 url: $(this).attr("action"),
                 type: $(this).attr("method"),
                 data: $(this).serialize(),
                 success: function (response) {
                     const rowId = $("#schemeId").val();
                     const row = $("#servicesTableBody tr[data-id='" + rowId + "']");
-                    row.remove(); // Remove row from the table
-
-                    const toast = new bootstrap.Toast($("#successToast"));
-                    $("#successToast").show();
-                    toast.show();
+                    row.remove();
                     $("#loadingOverlay").removeClass("show");
                     $("#editModal").modal("hide");
                 },
